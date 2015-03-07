@@ -1,0 +1,40 @@
+{
+	"name": "coinbase-service",
+	"version": "0.2.3",
+	"description": "Wrapper for the coinbase bitcoin wallet & exchange API",
+	"main": "lib/index.js",
+	"scripts": {
+		"test": "DEBUG= ./node_modules/.bin/mocha -t 5000"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:alejonext/coinbase-service.git"
+	},
+	"dependencies": {
+		"crypto-js": "3.1.2-2",
+		"lodash": "^1.1.1",
+		"microtime": "^0.6.0",
+		"request": "^2.16.6",
+		"underscore" : "1.7.0"
+	},
+	"devDependencies": {
+		"mocha": "*",
+		"sinon": "*",
+		"should": "*",
+		"pre-git": "^0.1.1"
+	},
+	"keywords": [
+		"coinbase",
+		"bitcoin",
+		"wallet",
+		"api"
+	],
+	"pre-push": [
+		"rm -rf tmp",
+		"rm -rf .sass-cache",
+		"node ../testers/publish.js",
+		"node ../testers/pre-push.js"
+	],
+	"author": "AlejoNext",
+	"license": "BSD"
+}
