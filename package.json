@@ -1,6 +1,6 @@
 {
 	"name": "coinbase-service",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Wrapper for the coinbase bitcoin wallet & exchange API",
 	"main": "lib/index.js",
 	"scripts": {
@@ -13,7 +13,7 @@
 	"dependencies": {
 		"crypto-js": "3.1.2-2",
 		"lodash": "^1.1.1",
-		"microtime": "^0.6.0",
+		"microtime": "^1.2.0",
 		"request": "^2.16.6",
 		"underscore" : "1.7.0"
 	},
@@ -36,5 +36,5 @@
 		"node ../testers/pre-push.js"
 	],
 	"author": "AlejoNext",
-	"license": "BSD"
+	"license": "MIT"
 }
