@@ -20,7 +20,8 @@ export class coinbase {
 	counter = 0;
 	last = '';
 	headers = {
-		'User-Agent': `${name}/${version}`
+		'User-Agent': `${name}/${version}`,
+		'content-type':  'application/json'
 	};
 
 	static VERSION = version;
@@ -30,19 +31,13 @@ export class coinbase {
 	 * @param  {String} APIKey              API Key
 	 * @param  {String} APISecret           API Secret
 	 * @param  {String} options.baseUrl     URL
-	 * @param  {String} options.contentType Content Type send
 	 */
-	constructor(APIKey, APISecret,{
-		baseUrl = 'https://api.coinbase.com/v1/',
-		contentType ='application/json',
-	}) {
+	constructor(APIKey, APISecret, baseUrl='https://api.coinbase.com/v1/') {
 		if (!APIKey || !APISecret ){
 			throw new Error('Must provide an APIKey in order to interact with the coinbase api');	
 		}
 
 		this.headers.ACCESS_KEY = APIKey;
-		this.headers['content-type'] = contentType;
-
 		this.__apiSecret = APISecret;
 		this.__baseUrl = baseUrl;
 
@@ -262,7 +257,7 @@ export class coinbase {
 		return nonce;
 	}
 
-	__Send ( type, uri, params, cb ){
+	__Send ( type, uri, params={}, cb ){
 		let url = this.__baseUrl + uri,
 			headers = _.clone(this.headers),
 			body = '';
