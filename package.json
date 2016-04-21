@@ -1,10 +1,11 @@
 {
 	"name": "coinbase-service",
-	"version": "0.2.4",
+	"version": "1.0.4",
 	"description": "Wrapper for the coinbase bitcoin wallet & exchange API",
 	"main": "lib/index.js",
 	"scripts": {
-		"test": "DEBUG= ./node_modules/.bin/mocha -t 5000"
+		"test": "DEBUG= ./node_modules/.bin/mocha -t 5000",
+		"build": "babel src -d lib"
 	},
 	"repository": {
 		"type": "git",
@@ -21,7 +22,8 @@
 		"mocha": "*",
 		"sinon": "*",
 		"should": "*",
-		"pre-git": "^0.1.1"
+		"pre-git": "^0.1.1",
+		"babel-cli": "^6.0.0"
 	},
 	"keywords": [
 		"coinbase",
@@ -36,5 +38,8 @@
 		"node ../testers/pre-push.js"
 	],
 	"author": "AlejoNext",
-	"license": "MIT"
+	"license": "MIT",
+	"babel" :{
+		"presets": ["es2015"]
+	}
 }
