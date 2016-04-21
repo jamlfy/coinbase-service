@@ -6,10 +6,7 @@ Require coinbase
 
 ```javascript
 var CoinbaseApi = require('coinbase-service');
-var coinbase = new CoinbaseApi({
-  APIKey: process.env.COINBASE_API_KEY,
-  APISecret: process.env.COINBASE_API_SECRET
-});
+var coinbase = new CoinbaseApi(process.env.COINBASE_API_KEY, process.env.COINBASE_API_SECRET);
 ```
 I will not explain the method by method. I'll make a simple explanation!
 
