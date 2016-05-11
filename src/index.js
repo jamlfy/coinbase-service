@@ -1,9 +1,8 @@
 import {version, name} from '../package.json';
 import {HmacSHA256} from 'crypto-js'; 
 import {stringify} from 'querystring'; 
-import * as microtime from 'microtime'; 
-import * as request from 'request'; 
-import * as _ from 'underscore'; 
+import microtime from 'microtime'; 
+import request from 'request'; 
 
 /**
  * Example:
@@ -23,9 +22,6 @@ export class coinbase {
 		'User-Agent': `${name}/${version}`,
 		'content-type':  'application/json'
 	};
-
-	static VERSION = version;
-	static NAME = name;
 
 	/**
 	 * @param  {String} APIKey              API Key
@@ -129,7 +125,7 @@ export class coinbase {
 		// Payment method
 		/* GET /payment_methods */
 		this.payment = (name, cb) => {
-			if(_.isFunction(name)){
+			if(typeof name === 'function'){
 				cb = name;
 				name = '';
 			}
@@ -138,7 +134,7 @@ export class coinbase {
 		};
 		/* GET /payment_methods/:id */
 		this.payment.show = (id, name, cb) => {
-			if(_.isFunction(name)){
+			if(typeof name === 'function'){
 				cb = name;
 				name = '';
 			}
@@ -149,7 +145,7 @@ export class coinbase {
 		// Price
 		/* GET /prices/buy */
 		this.price = (obj, cb) => {
-			if(_.isFunction(obj)){
+			if(typeof obj === 'function'){
 				cb = obj;
 				obj = { qty : 1 };
 			}
@@ -158,7 +154,7 @@ export class coinbase {
 		};
 		/* GET /prices/buy */
 		this.price.sell = (obj, cb) => {
-			if(_.isFunction(obj)){
+			if(typeof obj === 'function'){
 				cb = obj;
 				obj = { qty : 1 };
 			}
@@ -258,9 +254,9 @@ export class coinbase {
 	}
 
 	__Send ( type, uri, params={}, cb ){
-		let url = this.__baseUrl + uri,
-			headers = _.clone(this.headers),
-			body = '';
+		let url = this.__baseUrl + uri;
+		let headers = Object.assign({}, this.headers);
+		let body = '';
 
 		if(type === 'get'){
 			url += `?${stringify(params)}`;
@@ -268,7 +264,7 @@ export class coinbase {
 			body += JSON.stringify(params);
 		}
 
-		headers.ACCESS_NONCE =  __getNonce();
+		headers.ACCESS_NONCE =  this.__getNonce();
 		headers.ACCESS_SIGNATURE = headers.ACCESS_NONCE + url + body;
 		headers.ACCESS_SIGNATURE = HmacSHA256(headers.ACCESS_SIGNATURE, this.__apiSecret);
 
