@@ -1,42 +1,46 @@
 {
-	"name": "coinbase-service",
-	"version": "1.0.3",
-	"description": "Wrapper for the coinbase bitcoin wallet & exchange API",
-	"main": "lib/index.js",
-	"scripts": {
-		"test": "DEBUG= ./node_modules/.bin/mocha -t 5000",
-		"build": "babel src -d lib"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:alejonext/coinbase-service.git"
-	},
-	"dependencies": {
-		"crypto-js": "3.1.6",
-		"microtime": "^2.1.1",
-		"request": "^2.72.0"
-	},
-	"devDependencies": {
-		"mocha": "*",
-		"sinon": "*",
-		"should": "*",
-		"babel-cli": "^6.0.0"
-	},
-	"keywords": [
-		"coinbase",
-		"bitcoin",
-		"wallet",
-		"api"
-	],
-	"pre-push": [
-		"rm -rf tmp",
-		"rm -rf .sass-cache",
-		"node ../testers/publish.js",
-		"node ../testers/pre-push.js"
-	],
-	"author": "AlejoNext",
-	"license": "MIT",
-	"babel" :{
-		"presets": ["es2015"]
-	}
+  "name": "coinbase-service",
+  "version": "1.0.4",
+  "description": "Wrapper for the coinbase bitcoin wallet & exchange API",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "DEBUG= ./node_modules/.bin/mocha -t 5000",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alejonext/coinbase-service.git"
+  },
+  "dependencies": {
+    "crypto-js": "3.1.6",
+    "microtime": "^2.1.1",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.0.0",
+    "babel-plugin-object-assign": "^1.2.1",
+    "mocha": "*",
+    "should": "*",
+    "sinon": "*"
+  },
+  "keywords": [
+    "coinbase",
+    "bitcoin",
+    "wallet",
+    "api"
+  ],
+  "pre-push": [
+    "rm -rf tmp",
+    "rm -rf .sass-cache",
+    "node ../testers/publish.js",
+    "node ../testers/pre-push.js"
+  ],
+  "author": "AlejoNext",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins" : ["object-assign"]
+  }
 }

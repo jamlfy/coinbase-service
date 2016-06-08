@@ -15,14 +15,6 @@ import request from 'request';
 
 export default coinbase;
 export class coinbase {
-
-	counter = 0;
-	last = '';
-	headers = {
-		'User-Agent': `${name}/${version}`,
-		'content-type':  'application/json'
-	};
-
 	/**
 	 * @param  {String} APIKey              API Key
 	 * @param  {String} APISecret           API Secret
@@ -33,7 +25,14 @@ export class coinbase {
 			throw new Error('Must provide an APIKey in order to interact with the coinbase api');	
 		}
 
-		this.headers.ACCESS_KEY = APIKey;
+		this.counter = 0;
+		this.last = '';
+		this.headers = {
+			'User-Agent': `${name}/${version}`,
+			'content-type':  'application/json',
+			'ACCESS_KEY' : APIKey
+		};
+
 		this.__apiSecret = APISecret;
 		this.__baseUrl = baseUrl;
 
@@ -130,7 +129,7 @@ export class coinbase {
 				name = '';
 			}
 
-			this.__Send('get', `payment_methods/${name}`, null, cb);
+			return this.__Send('get', `payment_methods/${name}`, null, cb);
 		};
 		/* GET /payment_methods/:id */
 		this.payment.show = (id, name, cb) => {
@@ -139,7 +138,7 @@ export class coinbase {
 				name = '';
 			}
 
-			this.__Send('get', `payment_methods/${id}/${name}`, null, cb);
+			return this.__Send('get', `payment_methods/${id}/${name}`, null, cb);
 		};
 
 		// Price
@@ -150,7 +149,7 @@ export class coinbase {
 				obj = { qty : 1 };
 			}
 
-			this.__Send('get', 'prices/buy', obj, cb);
+			return this.__Send('get', 'prices/buy', obj, cb);
 		};
 		/* GET /prices/buy */
 		this.price.sell = (obj, cb) => {
@@ -159,7 +158,7 @@ export class coinbase {
 				obj = { qty : 1 };
 			}
 
-			this.__Send('get', 'prices/sell', obj, cb);
+			return this.__Send('get', 'prices/sell', obj, cb);
 		};
 		/* GET /prices/spot_rate */
 		this.price.spotRate = (obj, cb) => this.__Send('get', 'prices/spot_rate', obj, cb);
@@ -265,8 +264,7 @@ export class coinbase {
 		}
 
 		headers.ACCESS_NONCE =  this.__getNonce();
-		headers.ACCESS_SIGNATURE = headers.ACCESS_NONCE + url + body;
-		headers.ACCESS_SIGNATURE = HmacSHA256(headers.ACCESS_SIGNATURE, this.__apiSecret);
+		headers.ACCESS_SIGNATURE = HmacSHA256(headers.ACCESS_NONCE + url + body, this.__apiSecret);
 
 		request({
 			method: type.toLowerCase(),
@@ -279,7 +277,7 @@ export class coinbase {
 			}
 
 			try {
-				data = JSON.parse(data);
+				let data = JSON.parse(data);
 				if (data.success === false){
 					err = new Error(data.errors || data.error);
 				}
